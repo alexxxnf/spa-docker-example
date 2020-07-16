@@ -1,8 +1,7 @@
 #!/bin/sh
 set -e
 
-FLAG_FILE="/configured"
-TARGET_DIR="/etc/nginx/html"
+TARGET_DIR="/app/browser"
 CONFIGURABLE_FILES_PATTERN="main*.js"
 
 replace_vars () {
@@ -17,7 +16,7 @@ hash () {
   for f in "$TARGET_DIR"/$CONFIGURABLE_FILES_PATTERN; do
     FILENAME=$(basename "$f")
     HASH=$(sha1sum "$f" | awk '{ print $1 }')
-    sed -i "s+$FILENAME\"+$FILENAME?h=$HASH\"+g" /etc/nginx/html/index.html
+    sed -i "s+$FILENAME\"+$FILENAME?h=$HASH\"+g" $TARGET_DIR/index.html
   done
 }
 
@@ -27,22 +26,15 @@ compress () {
   done
 }
 
-if [ "$1" = 'nginx' ]; then
-  if [ ! -e "$FLAG_FILE" ]; then
-    echo "Running init script"
+echo "Running init script"
 
-    echo "Replacing env vars"
-    replace_vars
+echo "Replacing env vars"
+replace_vars
 
-    echo "Hashing files"
-    hash
+echo "Hashing files"
+hash
 
-    echo "Compressing files"
-    compress
+echo "Compressing files"
+compress
 
-    touch $FLAG_FILE
-    echo "Done"
-  fi
-fi
-
-exec "$@"
+echo "Done"

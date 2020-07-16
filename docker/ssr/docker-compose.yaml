@@ -1,0 +1,20 @@
+version: "3.1"
+
+services:
+  ssr:
+    image: alexxxnf/spa-docker-example-ssr
+    entrypoint: ["/docker-entrypoint-node.sh"]
+    command: ["node", "/app/server/main.js"]
+    environment:
+      TITLE: "Title passed via docker-compose"
+
+  spa:
+    image: alexxxnf/spa-docker-example-ssr
+    ports:
+      - "80:80"
+    environment:
+      SSR_HOST: ssr
+      SSR_PORT: 80
+      TITLE: "Title passed via docker-compose"
+    depends_on:
+      - ssr

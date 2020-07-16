@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev:ssr": "ng run docker-spa-example:serve-ssr",
+    "serve:ssr": "node dist/docker-spa-example/server/main.js",
+    "build:ssr": "ng build --prod -c production && ng run docker-spa-example:server:production",
+    "prerender": "ng run docker-spa-example:prerender"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +22,10 @@
     "@angular/forms": "~10.0.3",
     "@angular/platform-browser": "~10.0.3",
     "@angular/platform-browser-dynamic": "~10.0.3",
+    "@angular/platform-server": "~10.0.3",
     "@angular/router": "~10.0.3",
+    "@nguniversal/express-engine": "^10.0.1",
+    "express": "^4.15.2",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -27,6 +34,8 @@
     "@angular-devkit/build-angular": "~0.1000.2",
     "@angular/cli": "^10.0.2",
     "@angular/compiler-cli": "~10.0.3",
+    "@nguniversal/builders": "^10.0.1",
+    "@types/express": "^4.17.0",
     "@types/node": "^12.11.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

@@ -47,9 +47,22 @@ to run anywhere you like.
 
 ## Building Docker images
 
-In the root directory run `docker build -t <TAG_NAME> -f docker/Dockerfile .`.
+### Client Side Rendering
+
+In the root directory run `docker build -t <TAG_NAME> -f docker/csr/Dockerfile .`.
+
+### Server Side Rendering
+
+In the root directory run `docker build -t <TAG_NAME> -f docker/ssr/Dockerfile .`.
 
 ## Running Docker container
 
+### Client Side Rendering
+
 Run `docker run -p 80:80 -e TITLE="Title passed via env vars" <TAG_NAME>`
-or use [docker/docker-compose.yaml](docker/docker-compose.yaml).
+or use [docker/csr/docker-compose.yaml](docker/csr/docker-compose.yaml).
+
+### Server Side Rendering
+
+Server Side Rendering requires simultaneous run of two containers.
+See [docker/ssr/docker-compose.yaml](docker/ssr/docker-compose.yaml) for example.

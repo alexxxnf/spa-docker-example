@@ -1,4 +1,4 @@
-FROM alexxxnf/spa-builder as builder
+FROM alexxxnf/spa-builder:12.1 as builder
 
 COPY ./package.json ./package-lock.json /app/
 RUN cd /app && npm ci --no-audit
@@ -9,9 +9,9 @@ RUN cd /app \
 
 FROM alexxxnf/nginx-spa
 
+COPY ./docker/csr/docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=builder /usr/local/bin/brotli /usr/local/bin
-COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
-COPY --from=builder /app/dist/docker-spa-example /etc/nginx/html/
+COPY --from=builder /app/dist/docker-spa-example/browser /etc/nginx/html/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
