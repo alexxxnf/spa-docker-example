@@ -51,4 +51,5 @@ In the root directory run `docker build -t <TAG_NAME> -f docker/Dockerfile .`.
 
 ## Running Docker container
 
-Run `docker run -p 80:80 -e TITLE="Title passed via env vars" <TAG_NAME>`.
+Run `docker run -p 80:80 -e TITLE="Title passed via env vars" <TAG_NAME>`
+or use [docker/docker-compose.yaml](docker/docker-compose.yaml).

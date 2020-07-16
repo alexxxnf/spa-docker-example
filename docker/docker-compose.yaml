@@ -1,0 +1,9 @@
+version: "3.1"
+
+services:
+  spa:
+    image: alexxxnf/spa-docker-example
+    ports:
+      - "80:80"
+    environment:
+      TITLE: "Title passed via env vars"
