@@ -21,7 +21,7 @@ hash () {
 }
 
 compress () {
-  for i in $(find "$TARGET_DIR" | grep -E "\.css$|\.html$|\.js$|\.svg$|\.txt$|\.ttf$"); do
+  find "$TARGET_DIR" -regex '.*\.\(css\|html\|js\|svg\|txt\|ttf\)' | while read -r i; do
     gzip -9kf "$i" && brotli -fZ "$i"
   done
 }
